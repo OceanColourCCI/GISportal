@@ -23,14 +23,14 @@ gisportal.loadTemplates = function( callback ){
 	}
 	
 	$.ajax({
-		url: '/templates/',
+		url: 'templates/',
 		success: function( data ){
 			reg = RegExp(/href="(.+.mst?)"/g);
 			var match;
 			while (match = reg.exec(data)) {
 				waitingFor++;
 				var request = $.ajax({
-					url: '/templates/' + match[1],
+					url: 'templates/' + match[1],
 					success: compileTemplate
 				});
 				request.fileName = match[1];
