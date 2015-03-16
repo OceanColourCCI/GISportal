@@ -12,14 +12,14 @@
 
 
 gisportal.config = {
-   siteMode: "development", //(development|production)
+   siteMode: "production", //(development|production)
    browseCategories : {
       "indicator_type" : "Indicators",
       "region": "Region",
       "data_provider" : "Provider"
    },
    paths: {
-    graphServer: 'http://localhost:3000/',
+    graphServer: 'http://localhost:8112/',
     middlewarePath: '/service'
    },
 

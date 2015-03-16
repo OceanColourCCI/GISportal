@@ -317,7 +317,7 @@ layers = [
             ], 
             "region": "Global" 
          }, 
-         "dg_443": {
+         "adg_443": {
             "niceName": "adg_443", 
             "Confidence": "Unknown", 
             "interval": "Monthly", 
