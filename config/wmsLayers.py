@@ -2759,7 +2759,7 @@ layers = [
          },
          "water_class10": {
             "niceName": "Water Class 10",
-            "interval": "Monthly",
+            "interval": "Daily",
             "indicator_type": [ 
                "Water Class" 
             ],
@@ -2768,7 +2768,7 @@ layers = [
          },
          "water_class11": {
             "niceName": "Water Class 11",
-            "interval": "Monthly",
+            "interval": "Daily",
             "indicator_type": [ 
                "Water Class" 
             ],
@@ -2777,7 +2777,7 @@ layers = [
          },
          "water_class12": {
             "niceName": "Water Class 12",
-            "interval": "Monthly",
+            "interval": "Daily",
             "indicator_type": [ 
                "Water Class" 
             ],
@@ -2786,7 +2786,7 @@ layers = [
          },
          "water_class13": {
             "niceName": "Water Class 13",
-            "interval": "Monthly",
+            "interval": "Daily",
             "indicator_type": [ 
                "Water Class" 
             ],
@@ -2795,7 +2795,7 @@ layers = [
          },
          "water_class14": {
             "niceName": "Water Class 14",
-            "interval": "Monthly",
+            "interval": "Daily",
             "indicator_type": [ 
                "Water Class" 
             ],
