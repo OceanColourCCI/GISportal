@@ -23,7 +23,7 @@ gisportal.config = {
    defaultCategory: '',                     // only used when browseMode = selectlist; any key value from browseCategories
          
    paths: {
-    graphServer: 'http://localhost:8112/',
+    graphServer: 'https://www.oceancolour.org/plotting/',
     middlewarePath: '/service'
    },
 
