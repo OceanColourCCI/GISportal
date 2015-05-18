@@ -5,7 +5,7 @@ JSON_SORT_KEYS = False
 
 SECRET_KEY = 'p7i0-22@0eheas^kzw3=1qfug_x+5)5)8u4v=2iyilasdnfansdfnandfnasnvdfgdjgjfiwwx1eh)37'
 
-OPENID_FOLDER = '/home/rsgadmin/oceancolour.org/cache/openID'i
+OPENID_FOLDER = '/home/rsgadmin/oceancolour.org/cache/openID'
 DATABASE_URI = 'sqlite:///' + OPENID_FOLDER + '/user_storage.db'
 
 
