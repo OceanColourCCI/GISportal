@@ -296,7 +296,7 @@ gisportal.mapInit = function() {
       view: new ol.View({
          projection: gisportal.projection,
          center: [0, 0],
-         minZoom: 3,
+         minZoom: 2,
          maxZoom: 12,
          resolution: 0.175,
       }),
@@ -469,7 +469,7 @@ gisportal.loadState = function(state) {
          // this stops the map from auto zooming to the max extent of all loaded layers
          indicator.preventAutoZoom = true;
 
-         gisportal.refinePanel.foundIndicator(indicator.id);
+         gisportal.refinePanel.layerFound(indicator.id);
         
       }
    }
