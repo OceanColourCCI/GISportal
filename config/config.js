@@ -33,7 +33,7 @@ gisportal.config = {
    defaultBaseMap: 'EOX',
 
    // Should layers auto scale by default
-   autoScale: true,
+   autoScale: false,
 
    requiresTermsAndCondictions: true,
 
