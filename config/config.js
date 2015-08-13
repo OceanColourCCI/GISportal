@@ -23,12 +23,12 @@ gisportal.config = {
    defaultCategory: '',                     // only used when browseMode = selectlist; any key value from browseCategories
          
    paths: {
-    graphServer: 'https://www.oceancolour.org/plotting/',
+    graphServer: '/plotting/',
     middlewarePath: '/service'
    },
 
    // Should layers auto scale by default
-   autoScale: true,
+   autoScale: false,
    // set the default map
    defaultBaseMap: 'EOX',
 
