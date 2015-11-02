@@ -10,6 +10,12 @@ gisportal.map_settings.init = function() {
 
    // load the template and set values for base map options and country border options
    var layers = [];
+   
+   var layer = {};
+   layer.id = 'none';
+   layer.name = 'No map (plain black background)';
+   layers.push(layer);
+
    _.forEach(gisportal.baseLayers, function(d)  {
       var layer = {};
       layer.id = d.getProperties().id;
@@ -71,7 +77,7 @@ gisportal.map_settings.init = function() {
    // $('#select-basemap').change(function() {
    // 	gisportal.selectBaseLayer($('#select-basemap').val())
    //    gisportal.indicatorsPanel.reorderLayers();
-   // 	gisportal.events.emit('displayoptions.basemap', ['select-basemap', $(this).val(), 'Base map changed to '+ $('#select-basemap option:selected').text() ])
+   // 	gisportal.events.trigger('displayoptions.basemap', ['select-basemap', $(this).val(), 'Base map changed to '+ $('#select-basemap option:selected').text() ])
    // });
 
    // set the default value if one exists in config.js
@@ -84,7 +90,7 @@ gisportal.map_settings.init = function() {
    //   // set an action for the country borders select changing
    //   $('#select-country-borders').change(function() {
 	// 	gisportal.selectCountryBorderLayer($('#select-country-borders').val());
-	// 	gisportal.events.emit('displayoptions.basemap', ['select-country-borders', $(this).val(), 'Country borders set to \''+ $('#select-country-borders option:selected').text() +'\'' ])
+	// 	gisportal.events.trigger('displayoptions.basemap', ['select-country-borders', $(this).val(), 'Country borders set to \''+ $('#select-country-borders option:selected').text() +'\'' ])
 	// });
 
    if (typeof gisportal.config.showGraticules != 'undefined' && gisportal.config.showGraticules) {
@@ -95,7 +101,7 @@ gisportal.map_settings.init = function() {
    // // set an action for the graticules select changing
    // $('#select-graticules').change(function() {
    //    gisportal.setGraticuleVisibility($(this).val());
-   //    gisportal.events.emit('displayoptions.graticules', ['select-graticules', $(this).val(), 'Lat/Lon Graticules set to \''+ $('#select-graticules option:selected').text() +'\'' ])
+   //    gisportal.events.trigger('displayoptions.graticules', ['select-graticules', $(this).val(), 'Lat/Lon Graticules set to \''+ $('#select-graticules option:selected').text() +'\'' ])
    // });
 
 };
@@ -312,9 +318,14 @@ gisportal.selectBaseLayer = function(id) {
       }
    }
    // then add the selected option and send it to the bottom
-   map.addLayer(gisportal.baseLayers[id]);
-   // and make sure that the country borders are on top
-   gisportal.setCountryBordersToTopLayer();
+   if (id !== 'none') {
+      map.addLayer(gisportal.baseLayers[id]);
+   }
+   // and make sure that they are in the correct order
+   if (gisportal.selectedLayers.length > 0) {
+      gisportal.indicatorsPanel.reorderLayers();   
+   }
+   
 }
 
 gisportal.createGraticules = function() {
