@@ -31,6 +31,7 @@ gisportal.config = {
    autoScale: true,
    // set the default map
    defaultBaseMap: 'EOX',
+   defaultStyle: "boxfill/rainbow",
 
    // Should layers auto scale by default
    autoScale: true,
