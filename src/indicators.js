@@ -71,7 +71,7 @@ gisportal.indicatorsPanel.initDOM = function() {
 
 
    // Scale range event handlers
-   $('.js-indicators').on('change', '.js-scale-min, .js-scale-max, .scale-options > input[type="checkbox"]', function() {
+   $('.js-indicators').on('change', '.js-scale-min, .js-scale-max, .scalevalues > input[type="checkbox"]', function() {
       var id = $(this).data('id');
       var min = $('.js-scale-min[data-id="' + id + '"]').val();
       var max = $('.js-scale-max[data-id="' + id + '"]').val();
@@ -133,7 +133,7 @@ gisportal.indicatorsPanel.initDOM = function() {
    $('.js-indicators').on('click', '#show_more', function(e) {
       e.preventDefault();
       if(gisportal.panelSlideout.isOut('metadata')){
-         gisportal.events.emit('metadata.close');
+         gisportal.events.trigger('metadata.close');
       }
       else {
          var indicator = $(this).closest('[data-name]').data('name');//('ul').siblings('.indicator-header').data('name');
@@ -150,11 +150,11 @@ gisportal.indicatorsPanel.initDOM = function() {
    });
 
    $('.js-indicators').on('click', '.indicator-overlay', function(){
-      gisportal.events.emit('metadata.close');
+      gisportal.events.trigger('metadata.close');
    });
 
    $('.metadata-slideout').on('click', '.js-close-extrainfo', function() {
-      gisportal.events.emit('metadata.close');
+      gisportal.events.trigger('metadata.close');
    });
 
    $('body').on('click', '.js-focus-on-build-graph-component', function(){
@@ -182,7 +182,7 @@ gisportal.indicatorsPanel.initDOM = function() {
    });
 };
 
-gisportal.events.on('metadata.close', function() {
+gisportal.events.bind('metadata.close', function() {
    $('.indicator-overlay').remove();
    gisportal.panelSlideout.closeSlideout('metadata');
 });
@@ -300,7 +300,7 @@ gisportal.indicatorsPanel.addToPanel = function(data) {
       maxWidth: 200
    });
 
-   gisportal.events.emit('layer.addtopanel', data)
+   gisportal.events.trigger('layer.addtopanel', data)
 };
 
 gisportal.indicatorsPanel.reorderLayers = function() {
@@ -318,7 +318,11 @@ gisportal.indicatorsPanel.reorderLayers = function() {
    }
    
    // stick the base layer back on
-   map.addLayer(gisportal.baseLayers[$('#select-basemap').data().ddslick.selectedData.value]);
+   var selectedBaseMap = $('#select-basemap').data().ddslick.selectedData.value;
+   if (selectedBaseMap !== 'none') {
+      map.addLayer(gisportal.baseLayers[selectedBaseMap]);   
+   }
+   
 
    // then the indicator layers
    for (var l = layers.length - 1; l > -1; l--) {
@@ -335,7 +339,7 @@ gisportal.indicatorsPanel.removeFromPanel = function(id) {
    if (gisportal.layers[id]) gisportal.removeLayer(gisportal.layers[id]);
    gisportal.timeline.removeTimeBarById(id);
 
-   gisportal.events.emit('layer.remove', id, gisportal.layers[id].name)
+   gisportal.events.trigger('layer.remove', id, gisportal.layers[id].name)
 };
 
 /* There is overlap here with configurePanel,
@@ -349,7 +353,7 @@ gisportal.indicatorsPanel.selectLayer = function(id) {
       options.visible = true;
       gisportal.getLayerData(layer.serverName + '_' + layer.urlName + '.json', layer, options);
       
-      gisportal.events.emit('layer.select', id, gisportal.layers[id].name)
+      gisportal.events.trigger('layer.select', id, gisportal.layers[id].name)
    }
 };
 
@@ -358,7 +362,7 @@ gisportal.indicatorsPanel.hideLayer = function(id) {
       gisportal.layers[id].setVisibility(false);
       $('[data-id="' + id + '"] .indicator-header .js-toggleVisibility').toggleClass('active', false);
 
-      gisportal.events.emit('layer.hide', id, gisportal.layers[id].name)
+      gisportal.events.trigger('layer.hide', id, gisportal.layers[id].name)
    }
 };
 
@@ -367,7 +371,7 @@ gisportal.indicatorsPanel.showLayer = function(id) {
       gisportal.layers[id].setVisibility(true);
       $('[data-id="' + id + '"] .indicator-header .js-toggleVisibility').toggleClass('active', true);
 
-      gisportal.events.emit('layer.show', id, gisportal.layers[id].name)
+      gisportal.events.trigger('layer.show', id, gisportal.layers[id].name)
    }
 };
 
@@ -422,7 +426,7 @@ gisportal.indicatorsPanel.analysisTab = function(id) {
 };
 
 /**
- * Redraws the legend bar which will reflect changes to the legend colour and rage
+ * Redraws the legend bar which will reflect changes to the legend colour and range
  *
  * @param String layerId The ID of the layer to reload
  */
@@ -506,7 +510,7 @@ gisportal.indicatorsPanel.scalebarTab = function(id) {
             if (data.selectedData) {
                indicator.style = data.selectedData.value;
                indicator.mergeNewParams({
-                  styles: data.selectedData.value
+                  STYLES: data.selectedData.value
                });
                gisportal.indicatorsPanel.scalebarTab(id);
             }
